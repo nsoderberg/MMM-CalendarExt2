@@ -58,13 +58,13 @@ class Slot {
   assignEvents(events) {
     for (i = 0; i < events.length; i++) {
       var event = Object.assign({}, events[i])
-      var eS = moment.unix(event.startDate).locale(this.locale)
-      var eE = moment.unix(event.endDate).locale(this.locale)
+      var eS = moment.unix(event.startDate).utc().local(true).locale(this.locale)
+      var eE = moment.unix(event.endDate).utc().local(true).locale(this.locale)
       if (eE.isSameOrBefore(this.start) || eS.isSameOrAfter(this.end)) {
         //do nothing
       } else {
         if (eS.isBetween(this.start, this.end, null, "[)")) event.startHere = true
-        if (eE.isBetween(this.start, this.end, null, "(])")) event.endHere = true
+        if (eE.isBetween(this.start, this.end, null, "()")) event.endHere = true
         if (eE.format("HHmmss") == "000000") event.endDate = moment(eE).add(-1, "second").endOf("day").format("X")
         this.events.push(event)
       }
