@@ -1,5 +1,6 @@
 const fs = require("fs")
 const path = require("path")
+const validUrl = require("valid-url")
 const request = require("request")
 const moment = require("moment-timezone")
 const ICAL = require("ical.js")
